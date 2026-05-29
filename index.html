@@ -128,8 +128,9 @@
 
     .hero-name {
       font-family: var(--ff-head); font-weight: 800;
-      font-size: clamp(2.8rem, 5vw, 4.5rem); line-height: 1.05;
+      font-size: clamp(2rem, 8vw, 4.5rem); line-height: 1.05;
       letter-spacing: -.02em; color: var(--ink);
+      word-break: break-word;
       opacity: 0; animation: fadeUp .7s var(--ease-out) .45s both;
     }
 
@@ -172,7 +173,6 @@
     .hero-right {
       opacity: 0; animation: fadeUp .8s var(--ease-out) .6s both;
     }
-
     .terminal {
       background: #0e1117; border-radius: 8px;
       box-shadow: 0 32px 80px rgba(0,0,0,.35), 0 0 0 1px rgba(255,255,255,.05);
@@ -189,7 +189,7 @@
     .terminal-title {
       font-family: var(--ff-mono); font-size: .72rem; color: #555; margin-left: auto;
     }
-    .terminal-body { padding: 1.5rem; font-family: var(--ff-mono); font-size: .82rem; line-height: 1.9; }
+    .terminal-body { padding: 1.5rem; font-family: var(--ff-mono); font-size: .82rem; line-height: 1.9; overflow-x: auto; }
     .t-prompt { color: #28c840; }
     .t-cmd { color: #e2e8f0; }
     .t-comment { color: #4a5568; }
@@ -510,12 +510,12 @@
 
     /* --- Tablet (≤960px) --- */
     @media (max-width: 960px) {
-      /* Hero */
+      /* Hero: stack left + terminal vertically */
       .hero { padding: 6rem 1.5rem 3.5rem; min-height: auto; }
       .hero::after { display: none; }
-      .hero-inner { grid-template-columns: 1fr; gap: 0; }
-      .hero-right { display: none; }
-      .hero-name { font-size: clamp(2.6rem, 8vw, 3.8rem); }
+      .hero-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .hero-right { display: block; } /* show terminal stacked below */
+      .hero-name { font-size: clamp(2rem, 8vw, 3.8rem); }
       .hero-summary { max-width: 100%; }
 
       /* About */
@@ -546,11 +546,15 @@
 
       /* Hero */
       .hero { padding: 5.5rem 1.25rem 3rem; }
-      .hero-name { font-size: clamp(2.2rem, 10vw, 3rem); }
-      .hero-role { font-size: .88rem; }
-      .hero-badge { font-size: .7rem; }
+      .hero-name { font-size: clamp(1.9rem, 9vw, 2.8rem); word-break: break-word; }
+      .hero-role { font-size: .85rem; }
+      .hero-badge { font-size: .7rem; padding: .3rem .7rem; }
       .hero-cta { flex-direction: column; gap: .75rem; }
       .hero-cta .btn { width: 100%; justify-content: center; }
+
+      /* Terminal on mobile — compact font */
+      .terminal-body { padding: 1rem; font-size: .72rem; line-height: 1.75; }
+      .terminal-title { display: none; } /* hide title on tiny screens */
 
       /* Sections */
       section { padding: 3.5rem 1.25rem; }
@@ -564,10 +568,7 @@
       /* Timeline */
       .timeline { padding-left: 1.25rem; }
       .timeline::before { left: 5px; }
-      .job-card {
-        padding: 1.25rem;
-        margin-bottom: 2rem;
-      }
+      .job-card { padding: 1.25rem; margin-bottom: 2rem; }
       .job-card::before { left: -1.85rem; width: 12px; height: 12px; top: 1.6rem; }
       .job-card:hover { transform: none; box-shadow: 4px 4px 0 var(--amber); }
       .job-meta { flex-direction: column; align-items: flex-start; gap: .5rem; }
@@ -595,26 +596,24 @@
       .link-value { font-size: .88rem; word-break: break-all; }
       .btn { padding: .7rem 1.4rem; font-size: .75rem; }
 
-      /* Modal — move nav buttons inside image on small screens */
+      /* Modal — move nav buttons inside image */
       .modal-box { max-width: 95vw; }
       .modal-prev { left: .5rem; }
       .modal-next { right: .5rem; }
-      .modal-nav-btn {
-        width: 34px; height: 34px; font-size: 1rem;
-        background: rgba(0,0,0,.55);
-      }
+      .modal-nav-btn { width: 34px; height: 34px; font-size: 1rem; background: rgba(0,0,0,.55); }
       .modal-close { font-size: .78rem; top: -2rem; }
 
       /* Scroll top */
       #scroll-top { bottom: 1.25rem; right: 1.25rem; width: 36px; height: 36px; font-size: 1rem; }
     }
 
-    /* --- Very small screens (≤380px) --- */
+    /* --- Very small (≤380px) --- */
     @media (max-width: 380px) {
-      .hero-name { font-size: 2rem; }
+      .hero-name { font-size: 1.75rem; }
       .about-stats { grid-template-columns: 1fr 1fr; }
       .stat-num { font-size: 1.75rem; }
       .hero-role br { display: none; }
+      .terminal-body { font-size: .65rem; }
     }
   </style>
 </head>
